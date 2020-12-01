@@ -322,6 +322,10 @@ func (c *cmdList) showInstances(cts []api.InstanceFull, filters []string, column
 	// Generate the table data
 	data := [][]string{}
 	for _, ct := range cts {
+		// Add extra data to enable filtering based on
+		ct.Instance.ExpandedConfig["status"] = ct.Instance.Status;
+		ct.Instance.ExpandedConfig["type"] = ct.Instance.Type;
+		ct.Instance.ExpandedConfig["location"] = ct.Instance.Location;
 		if !c.shouldShow(filters, &ct.Instance) {
 			continue
 		}
